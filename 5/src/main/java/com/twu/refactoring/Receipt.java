@@ -27,13 +27,20 @@ public class Receipt {
         int totalKms = taxi.getTotalKms();
         double peakTimeMultiple = taxi.isPeakTime() ? PEAK_TIME_MULTIPLIER : OFF_PEAK_MULTIPLIER;
         if(taxi.isAirConditioned()) {
-            totalCost += Math.min(RATE_CHANGE_DISTANCE, totalKms) * PRE_RATE_CHANGE_AC_RATE * peakTimeMultiple;
-            totalCost += Math.max(0, totalKms - RATE_CHANGE_DISTANCE) * POST_RATE_CHANGE_AC_RATE * peakTimeMultiple;
+            totalCost += calculateByDistance(PRE_RATE_CHANGE_AC_RATE, totalKms) * peakTimeMultiple;
+            totalCost += calculateByDistance( POST_RATE_CHANGE_AC_RATE, totalKms) * peakTimeMultiple;
         } else {
-            totalCost += Math.min(RATE_CHANGE_DISTANCE, totalKms) * PRE_RATE_CHANGE_NON_AC_RATE * peakTimeMultiple;
-            totalCost += Math.max(0, totalKms - RATE_CHANGE_DISTANCE) * POST_RATE_CHANGE_NON_AC_RATE * peakTimeMultiple;
+            totalCost += calculateByDistance(PRE_RATE_CHANGE_NON_AC_RATE, totalKms) * peakTimeMultiple;
+            totalCost += calculateByDistance(POST_RATE_CHANGE_NON_AC_RATE, totalKms) * peakTimeMultiple;
         }
 
         return totalCost * (1 + SALES_TAX_RATE);
+    }
+
+    public int calculateByDistance(int condition, int totalKms) {
+        if (condition == PRE_RATE_CHANGE_AC_RATE || condition == PRE_RATE_CHANGE_NON_AC_RATE) {
+            return Math.min(RATE_CHANGE_DISTANCE, totalKms) * condition;
+        }
+        return Math.max(0, totalKms - RATE_CHANGE_DISTANCE) * condition;
     }
 }
