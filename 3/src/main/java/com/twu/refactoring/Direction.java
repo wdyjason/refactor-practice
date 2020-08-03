@@ -2,6 +2,11 @@ package com.twu.refactoring;
 
 public class Direction {
     private final char direction;
+    public final static char NORTH = 'N';
+    public final static char SOUTH = 'S';
+    public final static char EAST = 'E';
+    public final static char WEST = 'W';
+
 
     public Direction(char direction) {
         this.direction = direction;
@@ -9,14 +14,14 @@ public class Direction {
 
     public Direction turnRight() {
         switch (direction) {
-            case 'N':
-                return new Direction('E');
-            case 'S':
-                return new Direction('W');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
+            case NORTH:
+                return new Direction(EAST);
+            case SOUTH:
+                return new Direction(WEST);
+            case EAST:
+                return new Direction(NORTH);
+            case WEST:
+                return new Direction(SOUTH);
             default:
                 throw new IllegalArgumentException();
         }
@@ -24,14 +29,14 @@ public class Direction {
 
     public Direction turnLeft() {
         switch (direction) {
-            case 'N':
-                return new Direction('W');
-            case 'S':
-                return new Direction('E');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
+            case NORTH:
+                return new Direction(WEST);
+            case SOUTH:
+                return new Direction(EAST);
+            case EAST:
+                return new Direction(NORTH);
+            case WEST:
+                return new Direction(SOUTH);
             default:
                 throw new IllegalArgumentException();
         }
@@ -42,9 +47,9 @@ public class Direction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Direction direction1 = (Direction) o;
+        Direction directionAnother = (Direction) o;
 
-        if (direction != direction1.direction) return false;
+        if (direction != directionAnother.direction) return false;
 
         return true;
     }
