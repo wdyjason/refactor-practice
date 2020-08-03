@@ -3,18 +3,24 @@ package com.twu.refactoring;
 import java.util.List;
 
 public class Order {
-    String nm;
+    String customerName;
     String addr;
-    List<LineItem> li;
+    List<LineItem> items;
+    double totSalesTx;
 
-    public Order(String nm, String addr, List<LineItem> li) {
-        this.nm = nm;
+
+    double totAmount ;
+
+    public Order(String customerName, String addr, List<LineItem> items) {
+        this.customerName = customerName;
         this.addr = addr;
-        this.li = li;
+        this.items = items;
+        this.totSalesTx = 0d;
+        this.totAmount = 0d;
     }
 
     public String getCustomerName() {
-        return nm;
+        return customerName;
     }
 
     public String getCustomerAddress() {
@@ -22,6 +28,22 @@ public class Order {
     }
 
     public List<LineItem> getLineItems() {
-        return li;
+        return items;
+    }
+
+    public double getTotSalesTx() {
+        return totSalesTx;
+    }
+
+    public double getTotAmount() {
+        return totAmount;
+    }
+
+    public void setTotSalesTx(double totSalesTx) {
+        this.totSalesTx = totSalesTx;
+    }
+
+    public void setTotAmount(double totAmount) {
+        this.totAmount = totAmount;
     }
 }
